@@ -2,7 +2,7 @@
 ###### [Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-1/)
 # Case Study #1 - Danny's Diner
 ## Basic Description
-This is a case study of a Japanese resturant which operated for several months.
+This is a case study of a Japanese restaurant which operated for several months.
 Danny, the owner, wants to answer some questions about the data collected during these months.
 
 <details>
