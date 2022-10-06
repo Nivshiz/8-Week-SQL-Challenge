@@ -1,4 +1,4 @@
-1.
+-- 1. total amount each customer spent 
 SELECT customer_id, SUM(price) AS total_sales 
 FROM sales 
 INNER JOIN menu 
