@@ -1,10 +1,10 @@
 # 1.
-SELECT customer_id, SUM(price) AS total_sales 
+<sub> SELECT customer_id, SUM(price) AS total_sales 
 FROM sales 
 INNER JOIN menu 
 	ON sales.product_id = menu.product_id 
 GROUP BY customer_id;
-
+</sub> 
 2.
 SELECT customer_id, COUNT(DISTINCT order_date) AS total_visits
 FROM sales
