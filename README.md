@@ -1,4 +1,5 @@
 # 8-Week-SQL-Challenge
+Link to the Challenge [#8WeekSQLChallenge](https://8weeksqlchallenge.com/)
 
 This is a sql practice challenge.
 8 study cases, 8 weeks, lots of SQL questions, easy to hard.
