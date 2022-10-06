@@ -1,4 +1,11 @@
-# 8-Week-SQL-Challenge
+# <p align = "center">8-Week-SQL-Challenge</p>
+<p align = "center">
+<img src="https://8weeksqlchallenge.com/images/data-with-danny-logo.png" 
+        alt="Logo" 
+        width="500" 
+        height="500"/>
+</p>
+
 Link to the Challenge [#8WeekSQLChallenge](https://8weeksqlchallenge.com/)
 
 This is a sql practice challenge.
