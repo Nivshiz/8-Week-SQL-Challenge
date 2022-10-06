@@ -1,4 +1,4 @@
-1.
+# 1.
 SELECT customer_id, SUM(price) AS total_sales 
 FROM sales 
 INNER JOIN menu 
