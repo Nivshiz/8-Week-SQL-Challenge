@@ -21,8 +21,6 @@ Danny, the owner, wants to answer some questions about the data collected during
         height="315"/>
 </p>
 
-Includes 3 tables - sales, menu, and members.
-
 * **Table 1: sales**
   * The sales table captures all customer_id level purchases with an corresponding order_date and product_id information for when and what menu items were ordered.
 product_id is a Foreign Key to the menu table, customer_id is a Foreign Key to the members table.
