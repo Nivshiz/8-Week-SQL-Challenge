@@ -1,4 +1,10 @@
-![Case Study 1](https://8weeksqlchallenge.com/images/case-study-designs/1.png)
+<p align = "center">
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" 
+        alt="Image" 
+        width="500" 
+        height="500"/>
+</p>
+
 ###### [Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-1/)
 # Case Study #1 - Danny's Diner
 ## Basic Description
@@ -7,6 +13,14 @@ Danny, the owner, wants to answer some questions about the data collected during
 
 <details>
   <summary><b>The Database</b></summary>
+  
+<p align = "center">
+<img src="https://user-images.githubusercontent.com/80172576/194739317-926904a1-253b-4b3a-87d0-122a6c9eb8c2.png" 
+        alt="Image" 
+        width="560" 
+        height="315"/>
+</p>
+
 Includes 3 tables - sales, menu, and members.
 
 * **Table 1: sales**
