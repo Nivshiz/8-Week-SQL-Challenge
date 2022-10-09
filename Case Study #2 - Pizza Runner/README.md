@@ -15,27 +15,49 @@ Danny, the owner, requires further assistance to clean his data and apply some b
   <summary><b>The Database</b></summary>
   
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/80172576/194739317-926904a1-253b-4b3a-87d0-122a6c9eb8c2.png" 
+<img src="https://user-images.githubusercontent.com/80172576/194741373-e1a7a01a-2c27-4efe-8db3-4811c372eecc.png" 
         alt="Image" 
-        width="560" 
-        height="315"/>
+        width="833" 
+        height="463"/>
 </p>
 
-* **Table 1: sales**
-  * The sales table captures all customer_id level purchases with an corresponding order_date and product_id information for when and what menu items were ordered.
-product_id is a Foreign Key to the menu table, customer_id is a Foreign Key to the members table.
 
-![image](https://user-images.githubusercontent.com/80172576/194229062-9f42c23e-dd6a-416f-8af7-727a4699b461.png)
+* **Table 1: runners**
+  * The runners table shows the ***registration_date*** for each new runner.
 
-* **Table 2: menu**
-  * The menu table maps the product_id to the actual product_name and price of each menu item.
+![image](https://user-images.githubusercontent.com/80172576/194741804-8cc2ce8d-488c-4b1b-a9df-30468f06fc95.png)
 
-![image](https://user-images.githubusercontent.com/80172576/194229338-18386e58-91b4-47b4-85b6-22f210f3d3a1.png)
+* **Table 2: customer_orders**
+  * Customer pizza orders are captured in the ***customer_orders*** table with 1 row for each individual pizza that is part of the order.
+  * The ***pizza_id*** relates to the type of pizza which was ordered.
+  * The ***exclusions*** are the ***ingredient_id*** values which should be removed from the pizza.
+  * The ***extras*** are the ***ingredient_id*** values which need to be added to the pizza.
 
-* **Table 3: members**
-  * The members table captures the join_date when a customer_id joined the beta version of the Danny’s Diner loyalty program.
-  
-![image](https://user-images.githubusercontent.com/80172576/194229499-e3878771-f738-44bb-bceb-5078d533963f.png)
+![image](https://user-images.githubusercontent.com/80172576/194741783-2bbc3871-fbda-4805-8981-447399114efa.png)
+
+* **Table 3: runners_orders**
+  * After each orders are received through the system - they are assigned to a runner - however not all orders are fully completed and can be ***cancelled*** by the restaurant or the customer.
+  * The ***pickup_time*** is the timestamp at which the runner arrives at the Pizza Runner headquarters to pick up the freshly cooked pizzas. 
+  * The ***distance*** and ***duration*** fields are related to how far and long the runner had to travel to deliver the order to the respective customer.
+
+![image](https://user-images.githubusercontent.com/80172576/194741767-22f2bd4b-367d-4be3-9230-d31a6ffcf09a.png)
+        
+* **Table 4: pizza_names**
+  * There are only 2 pizzas available: the Meat Lovers or Vegetarian.
+        
+![image](https://user-images.githubusercontent.com/80172576/194741736-67b4f0c2-deef-4665-a4a0-1772293f4d5f.png)
+        
+* **Table 5: pizza_recipes**
+  * Each ***pizza_id*** has a standard set of ***toppings*** which are used as part of the pizza recipe.
+        
+![image](https://user-images.githubusercontent.com/80172576/194741721-c3db9b30-c9ba-4998-afa8-df05f65c1e3f.png)
+        
+* **Table 6: pizza_toppings**
+  * This table contains all of the ***topping_name*** values with their corresponding ***topping_id*** value.
+       
+![image](https://user-images.githubusercontent.com/80172576/194741706-b8518da2-bed9-4af6-bb29-7b003b5c0bea.png)
+
+
 </details>
 
 <details>
