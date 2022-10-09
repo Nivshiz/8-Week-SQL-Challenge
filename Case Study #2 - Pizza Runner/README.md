@@ -1,15 +1,15 @@
 <p align = "center">
-<img src="https://8weeksqlchallenge.com/images/case-study-designs/1.png" 
+<img src="https://8weeksqlchallenge.com/images/case-study-designs/2.png" 
         alt="Image" 
         width="500" 
         height="500"/>
 </p>
 
-###### [Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-1/)
-# Case Study #1 - Danny's Diner
+###### [Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-2/)
+# Case Study #2 - Pizza Runner
 ## Basic Description
-This is a case study of a Japanese restaurant which operated for several months.
-Danny, the owner, wants to answer some questions about the data collected during these months.
+This is a case study about a company the produces and sells pizzas, and deliver it with its own UBER couriers.
+Danny, the owner, requires further assistance to clean his data and apply some basic calculations so he can better direct his runners and optimise Pizza Runner’s operations and then answer some questions about his company.
 
 <details>
   <summary><b>The Database</b></summary>
