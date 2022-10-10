@@ -64,3 +64,8 @@ WHERE cancellation IS NULL
 GROUP BY pizza_id;
 
 -- 5. Vegetarian and Meatlovers that were ordered by each customer
+SELECT customer_id, pizza_name, COUNT(*) AS total_ordered
+FROM customer_orders
+INNER JOIN pizza_names
+	ON customer_orders.pizza_id = pizza_names.pizza_id
+GROUP BY customer_id, pizza_name;
