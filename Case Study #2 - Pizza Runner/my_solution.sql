@@ -64,8 +64,43 @@ WHERE cancellation IS NULL
 GROUP BY pizza_id;
 
 -- 5. Vegetarian and Meatlovers that were ordered by each customer
+-- option 1:
 SELECT customer_id, pizza_name, COUNT(*) AS total_ordered
 FROM customer_orders
 INNER JOIN pizza_names
 	ON customer_orders.pizza_id = pizza_names.pizza_id
 GROUP BY customer_id, pizza_name;
+
+-- option 2:
+WITH blabla AS
+(
+SELECT customer_id, pizza_name, COUNT(*) AS total_ordered
+FROM customer_orders
+INNER JOIN pizza_names
+	ON customer_orders.pizza_id = pizza_names.pizza_id
+GROUP BY customer_id, pizza_name
+)
+
+SELECT meat.customer_id, meat.total_meatlovers_ordered, veg.total_vegetarian_ordered 
+FROM
+	(SELECT customer_id, total_ordered AS total_meatlovers_ordered
+	FROM blabla
+	WHERE pizza_name = 'Meatlovers') AS meat
+LEFT JOIN 
+		(SELECT customer_id, total_ordered AS total_vegetarian_ordered
+		FROM blabla
+		WHERE pizza_name = 'Vegetarian') AS veg
+	USING(customer_id)
+
+UNION
+
+SELECT veg.customer_id, meat.total_meatlovers_ordered, veg.total_vegetarian_ordered 
+FROM
+	(SELECT customer_id, total_ordered AS total_meatlovers_ordered
+	FROM blabla
+	WHERE pizza_name = 'Meatlovers') AS meat
+RIGHT JOIN 
+		(SELECT customer_id, total_ordered AS total_vegetarian_ordered
+		FROM blabla
+		WHERE pizza_name = 'Vegetarian') AS veg
+	USING(customer_id)
