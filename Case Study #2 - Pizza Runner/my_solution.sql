@@ -124,3 +124,21 @@ WHERE pizza_count =
 
 -- 7. the total delivered pizzas that had at least 1 change and the ones that had no changes, for each customer
 
+SELECT customer_id, 
+	IFNULL(CASE WHEN exclusions = 0 AND extras = 0 THEN COUNT(*) END, 0) AS pizzas_with_no_changes,
+    IFNULL(CASE WHEN exclusions != 0 OR extras != 0 THEN COUNT(*) END, 0) AS pizzas_with_changes
+FROM customer_orders
+INNER JOIN runner_orders
+	ON customer_orders.order_id = runner_orders.order_id
+WHERE cancellation IS NULL
+GROUP BY customer_id
+
+-- 8. total pizzas that were delivered and had both exclusions and extras
+
+SELECT COUNT(*) AS pizzas_with_both_exclusions_and_extras
+FROM customer_orders
+INNER JOIN runner_orders
+	ON customer_orders.order_id = runner_orders.order_id
+WHERE cancellation IS NULL AND exclusions != 0 AND extras != 0
+
+-- 9. 
