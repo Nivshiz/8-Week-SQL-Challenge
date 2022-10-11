@@ -104,3 +104,23 @@ RIGHT JOIN
 		FROM blabla
 		WHERE pizza_name = 'Vegetarian') AS veg
 	USING(customer_id)
+
+-- 6. the maximum number of pizzas delivered in a single order
+
+WITH order_with_pizza_count AS 
+(
+SELECT customer_orders.order_id, COUNT(*) AS pizza_count 
+FROM customer_orders 
+INNER JOIN runner_orders 
+	ON customer_orders.order_id = runner_orders.order_id 
+WHERE cancellation IS NULL 
+GROUP BY customer_orders.order_id
+)
+
+SELECT *
+FROM order_with_pizza_count 
+WHERE pizza_count =
+	(SELECT MAX(pizza_count) FROM order_with_pizza_count)
+
+-- 7. the total delivered pizzas that had at least 1 change and the ones that had no changes, for each customer
+
