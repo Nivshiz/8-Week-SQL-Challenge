@@ -72,7 +72,7 @@ This case study has many questions, therefore they are broken up by area of focu
 * Bonus DML Challenges (DML = Data Manipulation Language)
 
         
-**Before writing SQL queries, there is a need to investigate the data, and do something those null values and data types in the ***customer_orders*** and ***runner_orders*** tables.**
+**Before writing SQL queries, there is a need to investigate the data, and do something with those null values and data types in the ***customer_orders*** and ***runner_orders*** tables.**
 
         
 ### A. Pizza Metrics
