@@ -152,3 +152,18 @@ FROM customer_orders
 INNER JOIN runner_orders
 	ON customer_orders.order_id = runner_orders.order_id
 GROUP BY week_number, day_of_week
+
+
+-- B. Runner and Customer Experience
+
+-- 1. count of runners that signed up, for each 1 week period
+SELECT WEEK(pickup_time) AS week_number, 
+	COUNT(DISTINCT runner_id) AS runners_count, 
+    GROUP_CONCAT(DISTINCT runner_id) AS runners_id
+FROM runner_orders
+WHERE cancellation IS NULL
+GROUP BY week_number
+
+-- 2. the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order
+
+
