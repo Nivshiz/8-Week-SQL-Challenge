@@ -165,5 +165,41 @@ WHERE cancellation IS NULL
 GROUP BY week_number
 
 -- 2. the average time in minutes it took for each runner to arrive at the Pizza Runner HQ to pickup the order
+-- in this question i assume that this time is defined as the subtraction of the ORDER_TIME from the PICKUP_TIME
 
+SELECT runner_id, 
+	ROUND(AVG(
+		TIMESTAMPDIFF(HOUR, order_time, pickup_time) * 60
+        +
+		TIMESTAMPDIFF(MINUTE, order_time, pickup_time)
+        +
+		TIMESTAMPDIFF(SECOND, order_time, pickup_time) / 3600
+	), 1) AS average_time_in_minutes
+FROM customer_orders 
+INNER JOIN runner_orders 
+	ON customer_orders.order_id = runner_orders.order_id 
+WHERE cancellation IS NULL
+GROUP BY runner_id
 
+-- 3. Is there any relationship between the number of pizzas and how long the order takes to prepare?
+
+SELECT num_of_pizzas, ROUND(AVG(time_diff), 1) AS avg_time, ROUND(STD(time_diff), 1) AS std
+FROM
+(SELECT customer_orders.order_id, COUNT(*) AS num_of_pizzas,
+	(TIMESTAMPDIFF(HOUR, order_time, pickup_time) * 60
+	+
+	TIMESTAMPDIFF(MINUTE, order_time, pickup_time)
+	+
+	TIMESTAMPDIFF(SECOND, order_time, pickup_time) / 3600) AS time_diff
+FROM customer_orders 
+INNER JOIN runner_orders 
+	ON customer_orders.order_id = runner_orders.order_id 
+WHERE cancellation IS NULL
+GROUP BY customer_orders.order_id
+ORDER BY num_of_pizzas) AS time_differences
+GROUP BY num_of_pizzas
+-- It can be seen from the result set that there is a correlation between
+-- the number of pizzas and the time that passed from the time of the order until the runner picked it up. 
+-- The more pizzas, the longer the average time.
+
+-- 4. 
