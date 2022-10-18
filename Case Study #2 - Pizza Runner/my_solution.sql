@@ -254,3 +254,9 @@ SELECT runner_id,
 	ROUND(COUNT(*) / (COUNT(*) + COUNT(NULLIF(cancellation, ''))) * 100, 1) AS successful_delivery_percentage
 FROM runner_orders 
 GROUP BY runner_id
+
+
+C. Ingredient Optimisation
+
+-- 1. the standard ingredients for each pizza
+
