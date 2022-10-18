@@ -237,3 +237,20 @@ SELECT MAX(delivery_time) AS longest_delivery_time,
 	MIN(delivery_time) AS shortest_delivery_time, 
     MAX(delivery_time) - MIN(delivery_time) AS diff_longest_shortest 
 FROM order_delivery_time
+
+-- 6. what was the average speed for each runner for each delivery and do you notice any trend for these values?
+
+SELECT runner_id, 
+	ROUND(AVG(distance / (duration / 60)), 1) AS kilometer_per_hour, 
+    COUNT(*) AS num_of_deliveries
+FROM runner_orders 
+WHERE cancellation IS NULL
+GROUP BY runner_id
+-- The only significant thing i can see is that on average, runner 2 drives much faster than runners 1, 3.
+
+-- 7. the successful delivery percentage for each runner
+
+SELECT runner_id, 
+	ROUND(COUNT(*) / (COUNT(*) + COUNT(NULLIF(cancellation, ''))) * 100, 1) AS successful_delivery_percentage
+FROM runner_orders 
+GROUP BY runner_id
