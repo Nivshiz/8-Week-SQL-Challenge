@@ -202,4 +202,38 @@ GROUP BY num_of_pizzas
 -- the number of pizzas and the time that passed from the time of the order until the runner picked it up. 
 -- The more pizzas, the longer the average time.
 
--- 4. 
+-- 4. Average distance travelled for each customer
+-- in this question i assume that "travelled" means only the way to the customer and not back from him because 
+-- the runner may have other orders that he took on the same trip and he does not return straight from there
+
+SELECT customer_id, ROUND(AVG(distance), 1) AS average_distance_travelled
+FROM customer_orders 
+INNER JOIN runner_orders 
+	ON customer_orders.order_id = runner_orders.order_id 
+WHERE cancellation IS NULL
+GROUP BY customer_id
+
+-- 5. the difference between the longest and shortest delivery times for all orders
+
+WITH order_delivery_time AS
+(
+	SELECT DISTINCT customer_orders.order_id, 
+		ROUND(
+			duration
+			+
+			(TIMESTAMPDIFF(HOUR, order_time, pickup_time) * 60
+			+
+			TIMESTAMPDIFF(MINUTE, order_time, pickup_time)
+			+
+			TIMESTAMPDIFF(SECOND, order_time, pickup_time) / 3600) 
+			, 1) AS delivery_time
+	FROM customer_orders 
+	INNER JOIN runner_orders 
+		ON customer_orders.order_id = runner_orders.order_id 
+	WHERE cancellation IS NULL
+)
+
+SELECT MAX(delivery_time) AS longest_delivery_time, 
+	MIN(delivery_time) AS shortest_delivery_time, 
+    MAX(delivery_time) - MIN(delivery_time) AS diff_longest_shortest 
+FROM order_delivery_time
