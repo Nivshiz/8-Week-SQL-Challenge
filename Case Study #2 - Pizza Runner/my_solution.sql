@@ -259,4 +259,45 @@ GROUP BY runner_id
 C. Ingredient Optimisation
 
 -- 1. the standard ingredients for each pizza
+-- For this question firstly i created a new view that represent the normalized pizza and it's toppings
+CREATE VIEW normalized_toppings AS
+	SELECT 1 AS pizza_id, 1 AS topping
+    UNION ALL
+    SELECT 1 AS pizza_id, 2 AS topping
+    UNION ALL
+    SELECT 1 AS pizza_id, 3 AS topping
+    UNION ALL
+    SELECT 1 AS pizza_id, 4 AS topping
+    UNION ALL
+    SELECT 1 AS pizza_id, 5 AS topping
+    UNION ALL
+    SELECT 1 AS pizza_id, 6 AS topping
+    UNION ALL
+    SELECT 1 AS pizza_id, 8 AS topping
+    UNION ALL
+    SELECT 1 AS pizza_id, 10 AS topping
+    UNION ALL
+    SELECT 2 AS pizza_id, 4 AS topping
+    UNION ALL
+    SELECT 2 AS pizza_id, 6 AS topping
+    UNION ALL
+    SELECT 2 AS pizza_id, 7 AS topping
+    UNION ALL
+    SELECT 2 AS pizza_id, 9 AS topping
+    UNION ALL
+    SELECT 2 AS pizza_id, 11 AS topping
+    UNION ALL
+    SELECT 2 AS pizza_id, 12 AS topping;
+    
+SELECT pizza_name, GROUP_CONCAT(topping_name ORDER BY topping_name SEPARATOR ", ")
+FROM
+	(SELECT *
+	FROM normalized_toppings
+	INNER JOIN pizza_names 
+		USING(pizza_id)
+	INNER JOIN pizza_toppings 
+		ON normalized_toppings.topping = pizza_toppings.topping_id) AS a
+GROUP BY pizza_name
+
+-- 2. the most commonly added extra
 
