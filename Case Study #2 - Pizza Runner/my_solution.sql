@@ -301,3 +301,106 @@ GROUP BY pizza_name
 
 -- 2. the most commonly added extra
 
+WITH toppings_count AS
+(
+	SELECT 1 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%1%'
+	UNION ALL 
+	SELECT 2 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%2%'
+	UNION ALL 
+	SELECT 3 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%3%'
+	UNION ALL 
+	SELECT 4 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%4%'
+	UNION ALL 
+	SELECT 5 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%5%'
+	UNION ALL 
+	SELECT 6 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%6%'
+	UNION ALL 
+	SELECT 7 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%7%'
+	UNION ALL 
+	SELECT 8 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%8%'
+	UNION ALL 
+	SELECT 9 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%9%'
+	UNION ALL 
+	SELECT 10 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%10%'
+	UNION ALL 
+	SELECT 11 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%11%'
+	UNION ALL 
+	SELECT 12 AS topping, COUNT(*) AS count FROM customer_orders WHERE extras LIKE '%12%'
+)
+
+SELECT topping_name, count
+FROM toppings_count 
+INNER JOIN pizza_toppings 
+	ON toppings_count.topping = pizza_toppings.topping_id 
+WHERE count = (SELECT MAX(count) FROM toppings_count)
+
+-- 3. the most common exclusion
+
+WITH toppings_count AS
+(
+	SELECT 1 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%1%'
+	UNION ALL 
+	SELECT 2 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%2%'
+	UNION ALL 
+	SELECT 3 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%3%'
+	UNION ALL 
+	SELECT 4 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%4%'
+	UNION ALL 
+	SELECT 5 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%5%'
+	UNION ALL 
+	SELECT 6 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%6%'
+	UNION ALL 
+	SELECT 7 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%7%'
+	UNION ALL 
+	SELECT 8 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%8%'
+	UNION ALL 
+	SELECT 9 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%9%'
+	UNION ALL 
+	SELECT 10 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%10%'
+	UNION ALL 
+	SELECT 11 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%11%'
+	UNION ALL 
+	SELECT 12 AS topping, COUNT(*) AS count FROM customer_orders WHERE exclusions LIKE '%12%'
+)
+
+SELECT topping_name, count
+FROM toppings_count 
+INNER JOIN pizza_toppings 
+	ON toppings_count.topping = pizza_toppings.topping_id 
+WHERE count = (SELECT MAX(count) FROM toppings_count)
+
+-- 4. generating an order item for each record in the customers_orders table in the given format
+
+SELECT *, 
+	CASE
+		WHEN pizza_id = 2 THEN 'veg'
+		WHEN extras = 0 AND exclusions = 0 THEN 'Meat Lovers'
+        WHEN exclusions LIKE INSERT('%%', 2, 1, (SELECT topping_id FROM pizza_toppings WHERE topping_name = 'Beef')) THEN 'Meat Lovers - Exclude Beef'
+        WHEN extras LIKE INSERT('%%', 2, 1, (SELECT topping_id FROM pizza_toppings WHERE topping_name = 'Bacon')) THEN 'Meat Lovers - Extra Bacon'
+        WHEN exclusions LIKE INSERT('%%', 2, 1, (SELECT topping_id FROM pizza_toppings WHERE topping_name = 'Cheese'))
+			AND exclusions LIKE INSERT('%%', 2, 1, (SELECT topping_id FROM pizza_toppings WHERE topping_name = 'Bacon'))
+			AND extras LIKE INSERT('%%', 2, 1, (SELECT topping_id FROM pizza_toppings WHERE topping_name = 'Mushroom'))
+            AND extras LIKE INSERT('%%', 2, 1, (SELECT topping_id FROM pizza_toppings WHERE topping_name = 'Peppers'))
+            THEN 'Meat Lovers - Exclude Cheese, Bacon - Extra Mushroom, Peppers'
+		ELSE 'Other'
+        END AS order_item
+FROM customer_orders
+
+
+-- D. Pricing and Ratings
+
+-- 1. total revenue where a Meat Lovers pizza costs $12 and Vegetarian costs $10 and there were no charges for changes and no delivery fees
+
+SELECT *,
+	CASE pizza_id
+		WHEN 1 THEN pizza_count * 12
+        ELSE pizza_count * 10
+	END AS revenue
+FROM
+	(SELECT DISTINCT pizza_id, COUNT(pizza_id) OVER(PARTITION BY pizza_id) AS pizza_count
+	FROM
+		(SELECT customer_orders.*
+		FROM customer_orders
+		INNER JOIN runner_orders
+			ON customer_orders.order_id = runner_orders.order_id
+		WHERE cancellation IS NULL) AS bla) AS blabla
