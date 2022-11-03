@@ -1,3 +1,5 @@
+-- Case Study #1 - Danny's Diner
+
 -- 1. Total amount each customer spent 
 
 SELECT customer_id, SUM(price) AS total_sales 
