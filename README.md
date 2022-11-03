@@ -20,3 +20,5 @@ I found this source very challenging, educational, and fun, with detailed explan
 [# Case Study #1 - Danny's Diner](https://github.com/Nivshiz/8-Week-SQL-Challenge/tree/main/Case%20Study%20%231%20-%20Danny's%20Diner)
 
 [# Case Study #2 - Pizza Runner](https://github.com/Nivshiz/8-Week-SQL-Challenge/tree/main/Case%20Study%20%232%20-%20Pizza%20Runner)
+
+[# Case Study #3 - Foodie Fi](https://github.com/Nivshiz/8-Week-SQL-Challenge/tree/main/Case%20Study%20%232%20-%20Pizza%20Runner)
