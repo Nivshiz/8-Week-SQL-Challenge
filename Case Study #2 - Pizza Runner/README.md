@@ -5,7 +5,8 @@
         height="500"/>
 </p>
 
-###### [Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-2/)
+###### <div align="center">[Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-2/)</div>
+
 # Case Study #2 - Pizza Runner
 ## Basic Description
 This is a case study about a company the produces and sells pizzas, and deliver it with its own UBER couriers.
