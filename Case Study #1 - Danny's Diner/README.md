@@ -5,7 +5,8 @@
         height="500"/>
 </p>
 
-###### [Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-1/)
+###### <div align="center">[Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-1/)</div>
+
 # Case Study #1 - Danny's Diner
 ## Basic Description
 This is a case study of a Japanese restaurant which operated for several months.
