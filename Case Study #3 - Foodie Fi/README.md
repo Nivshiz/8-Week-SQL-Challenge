@@ -8,54 +8,33 @@
 ###### [Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-3/)
 # Case Study #3 - Foodie Fi
 ## Basic Description
-This is a case study about a company the produces and sells pizzas, and deliver it with its own UBER couriers.
-Danny, the owner, requires further assistance to clean his data and apply some basic calculations so he can better direct his runners and optimise Pizza Runner’s operations and then answer some questions about his company.
+This case study focuses on using subscription style digital data to answer important business questions.
 
 <details>
   <summary><b>The Database</b></summary>
   
 <p align = "center">
-<img src="https://user-images.githubusercontent.com/80172576/194741373-e1a7a01a-2c27-4efe-8db3-4811c372eecc.png" 
+<img src="https://user-images.githubusercontent.com/80172576/199710652-17542c70-9a80-4370-8a5f-62bfaf0249b5.png" 
         alt="Image" 
-        width="833" 
-        height="463"/>
+        width="433" 
+        height="200"/>
 </p>
 
 
-* **Table 1: runners**
-  * The runners table shows the ***registration_date*** for each new runner.
+* **Table 1: plans**
+  * The plans table contain the available plans that a customer can join at their sign up.
+  * Basic plan customers have limited access and can only stream their videos and is only available monthly at $9.90.
+  * Customers can sign up to an initial 7 day free trial will automatically continue with the pro monthly subscription plan unless they cancel, downgrade to basic or upgrade to an annual pro plan at any point during the trial.
+  * When customers cancel their Foodie-Fi service - they will have a churn plan record with a null price but their plan will continue until the end of the billing period.
 
-![image](https://user-images.githubusercontent.com/80172576/194741804-8cc2ce8d-488c-4b1b-a9df-30468f06fc95.png)
+![image](https://user-images.githubusercontent.com/80172576/199712350-db5fa605-4b98-4f9e-80bd-2fd5bfafca57.png)
 
-* **Table 2: customer_orders**
-  * Customer pizza orders are captured in the ***customer_orders*** table with 1 row for each individual pizza that is part of the order.
-  * The ***pizza_id*** relates to the type of pizza which was ordered.
-  * The ***exclusions*** are the ***ingredient_id*** values which should be removed from the pizza.
-  * The ***extras*** are the ***ingredient_id*** values which need to be added to the pizza.
 
-![image](https://user-images.githubusercontent.com/80172576/194741783-2bbc3871-fbda-4805-8981-447399114efa.png)
-
-* **Table 3: runners_orders**
-  * After each orders are received through the system - they are assigned to a runner - however not all orders are fully completed and can be ***cancelled*** by the restaurant or the customer.
-  * The ***pickup_time*** is the timestamp at which the runner arrives at the Pizza Runner headquarters to pick up the freshly cooked pizzas. 
-  * The ***distance*** and ***duration*** fields are related to how far and long the runner had to travel to deliver the order to the respective customer.
-
-![image](https://user-images.githubusercontent.com/80172576/194741767-22f2bd4b-367d-4be3-9230-d31a6ffcf09a.png)
-        
-* **Table 4: pizza_names**
-  * There are only 2 pizzas available: the Meat Lovers or Vegetarian.
-        
-![image](https://user-images.githubusercontent.com/80172576/194741736-67b4f0c2-deef-4665-a4a0-1772293f4d5f.png)
-        
-* **Table 5: pizza_recipes**
-  * Each ***pizza_id*** has a standard set of ***toppings*** which are used as part of the pizza recipe.
-        
-![image](https://user-images.githubusercontent.com/80172576/194741721-c3db9b30-c9ba-4998-afa8-df05f65c1e3f.png)
-        
-* **Table 6: pizza_toppings**
-  * This table contains all of the ***topping_name*** values with their corresponding ***topping_id*** value.
-       
-![image](https://user-images.githubusercontent.com/80172576/194741706-b8518da2-bed9-4af6-bb29-7b003b5c0bea.png)
+* **Table 2: subscriptions**
+  * Customer subscriptions show the exact date where their specific ***plan_id*** starts.
+  * If customers downgrade from a pro plan or cancel their subscription - the higher plan will remain in place until the period is over - the ***start_date*** in the subscriptions table will reflect the date that the actual plan changes.
+  * When customers upgrade their account from a basic plan to a pro or annual pro plan - the higher plan will take effect straightaway.
+  * When customers churn - they will keep their access until the end of their current billing period but the ***start_date*** will be technically the day they decided to cancel their service.
 
 
 </details>
