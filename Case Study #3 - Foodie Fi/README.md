@@ -85,4 +85,4 @@ The following are open ended questions which might be asked during a technical i
 
 </details>
 
-#### [Solution](https://github.com/Nivshiz/8-Week-SQL-Challenge/new/main/Case%20Study%20%233%20-%20Foodie%20Fi)
+#### [Solution](https://github.com/Nivshiz/8-Week-SQL-Challenge/blob/main/Case%20Study%20%233%20-%20Foodie%20Fi/my_solution.sql)
