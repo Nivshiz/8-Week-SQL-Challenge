@@ -5,7 +5,7 @@
         height="500"/>
 </p>
 
-###### [Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-3/)
+###### <div align="center">[Click Here for the Complete Case Study](https://8weeksqlchallenge.com/case-study-3/)</div>
 # Case Study #3 - Foodie Fi
 ## Basic Description
 This case study focuses on using subscription style digital data to answer important business questions.
