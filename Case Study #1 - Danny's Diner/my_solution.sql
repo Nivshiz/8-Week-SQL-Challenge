@@ -1,4 +1,5 @@
 -- 1. Total amount each customer spent 
+
 SELECT customer_id, SUM(price) AS total_sales 
 FROM sales 
 INNER JOIN menu 
@@ -6,11 +7,13 @@ INNER JOIN menu
 GROUP BY customer_id;
 
 -- 2. The number of days each customer has visited on the restaurant
+
 SELECT customer_id, COUNT(DISTINCT order_date) AS total_visits
 FROM sales
 GROUP BY customer_id
 
 -- 3. The first item from the menu purchased by each customer
+
 SELECT sales.customer_id, GROUP_CONCAT(DISTINCT product_name) AS items_on_first_order
 FROM sales 
 INNER JOIN (SELECT customer_id, MIN(order_date) AS first_date
@@ -23,6 +26,7 @@ INNER JOIN menu
 GROUP BY customer_id
 
 -- 4. The most purchased item on the menu and the number of times purchased by all customers
+
 SELECT product_name, COUNT(*) AS orders
 FROM sales
 INNER JOIN menu
@@ -36,6 +40,7 @@ HAVING orders =
 		GROUP BY product_id) AS product_count)
 
 -- 5. The most popular item for each customer
+
 SELECT customer_id, product_name, orders_count
 FROM
 	(SELECT customer_id, sales.product_id, product_name, COUNT(sales.product_id) AS orders_count,
@@ -47,6 +52,7 @@ FROM
 WHERE ranking = 1
 
 -- 6. The item purchased first by the customer after they became a member
+
 SELECT sales.customer_id, product_name, MIN(order_date) AS order_date
 FROM sales 
 INNER JOIN members 
@@ -57,6 +63,7 @@ WHERE order_date >= join_date
 GROUP BY sales.customer_id
 
 -- 7. The item purchased right before a customer becomes a member
+
 SELECT sales.customer_id, product_name, order_date
 FROM sales
 INNER JOIN (SELECT sales.customer_id, MAX(order_date) AS date_before_member
@@ -73,6 +80,7 @@ INNER JOIN menu
 	ON sales.product_id = menu.product_id
 
 -- 8. Total items and amount spent for each member before they became a member
+
 SELECT sales.customer_id, COUNT(*) AS total_items, SUM(price) AS total_amount_spent
 FROM sales 
 INNER JOIN (SELECT DISTINCT sales.customer_id, join_date
@@ -88,6 +96,7 @@ GROUP BY customer_id
 -- 9. Total points for each customer, where:
 -- * Each $1 spent equates to 10 points
 -- * Sushi has a 2x points multiplier
+
 SELECT sales.customer_id,
 	SUM(CASE
 		WHEN product_name = 'sushi' THEN price*20
@@ -107,6 +116,7 @@ GROUP BY customer_id
 -- * Each $1 spent equates to 10 points
 -- * Sushi has a 2x points multiplier
 -- * At first week after a customer joins the program (including their join date) they earn 2x points on all items
+
 SELECT sales.customer_id,
 	SUM(CASE
 		WHEN product_name = 'sushi' THEN price*20
