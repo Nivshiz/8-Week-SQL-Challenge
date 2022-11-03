@@ -52,3 +52,5 @@ product_id is a Foreign Key to the menu table, customer_id is a Foreign Key to t
 <br><b>10.</b> In the first week after a customer joins the program (including their join date) they earn 2x points on all items, not just sushi - how many points do customer A and B have at the end of January?</br>
 
 </details>
+
+#### [Solution](https://github.com/Nivshiz/8-Week-SQL-Challenge/blob/main/Case%20Study%20%231%20-%20Danny's%20Diner/my_solution.sql)
