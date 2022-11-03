@@ -404,3 +404,44 @@ FROM
 		INNER JOIN runner_orders
 			ON customer_orders.order_id = runner_orders.order_id
 		WHERE cancellation IS NULL) AS bla) AS blabla
+
+-- 2. total revenue with extras (each extra added costs $1)
+
+SELECT SUM(pizza_revenue) + SUM(extras_count) AS total_revenue
+FROM
+	(SELECT
+	CASE pizza_id
+		WHEN 1 THEN 12
+		ELSE 10
+		END AS pizza_revenue,
+	CASE
+		WHEN extras = 0 THEN 0
+		ELSE LENGTH(TRIM(BOTH ',' FROM extras)) - LENGTH(REPLACE(TRIM(BOTH ',' FROM extras), ',', '')) + 1
+		END AS extras_count
+	FROM customer_orders
+    INNER JOIN runner_orders
+		ON customer_orders.order_id = runner_orders.order_id
+	WHERE cancellation IS NULL) AS pizzas_revenues
+
+-- 3. creating a new table contains a synthetic runners rating (by customers)
+-- My assumption is that for each order the customer is able to rate it's runner
+
+CREATE TABLE order_rating(
+	order_id INT NOT NULL,
+        customer_id INT NOT NULL,
+        runner_id INT NOT NULL
+	rate INT NOT NULL
+);
+
+INSERT INTO order_rating(order_id, customer_id, runner_id, rate)
+VALUES
+	(1,101,1,1),
+	(2,101,1,5),
+	(3,102,1,4),
+	(4,103,2,5),
+	(5,104,3,4),
+	(7,105,2,2),
+	(8,102,2,2),
+	(10,104,1,3);
+
+-- 4. 
