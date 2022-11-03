@@ -444,4 +444,52 @@ VALUES
 	(8,102,2,2),
 	(10,104,1,3);
 
--- 4. 
+-- 4. joining all of the information together as required
+
+WITH cte AS(
+	SELECT runner_orders.order_id, COUNT(*) AS count
+	FROM customer_orders 
+	INNER JOIN runner_orders
+		ON customer_orders.order_id = runner_orders.order_id
+	WHERE cancellation IS NULL
+	GROUP BY runner_orders.order_id)
+
+SELECT customer_orders.customer_id,
+	customer_orders.order_id,
+    runner_orders.runner_id,
+    rate,
+    customer_orders.order_time,
+    runner_orders.pickup_time,
+    ROUND(
+			(TIMESTAMPDIFF(HOUR, order_time, pickup_time) * 60
+			+
+			TIMESTAMPDIFF(MINUTE, order_time, pickup_time)
+			+
+			TIMESTAMPDIFF(SECOND, order_time, pickup_time) / 3600) 
+			, 1) AS Minutes_between_order_and_pickup,
+    duration AS Delivery_duration,
+    ROUND(AVG(distance / (duration / 60)), 1) AS Average_speed,
+    count AS Total_number_of_pizzas
+FROM customer_orders 
+INNER JOIN runner_orders
+	ON customer_orders.order_id = runner_orders.order_id
+INNER JOIN order_rating
+	ON customer_orders.order_id = order_rating.order_id
+INNER JOIN cte
+	ON customer_orders.order_id = cte.order_id
+GROUP BY customer_orders.customer_id, customer_orders.order_id, runner_orders.runner_id
+
+-- 5. total revenue when each runner is paid $0.30 per kilometre traveled
+
+SELECT SUM(pizza_revenue) - 0.3*SUM(distance) AS total_revenue
+FROM
+	(SELECT
+	CASE pizza_id
+		WHEN 1 THEN 12
+		ELSE 10
+		END AS pizza_revenue,
+	distance
+	FROM customer_orders
+    INNER JOIN runner_orders
+		ON customer_orders.order_id = runner_orders.order_id
+	WHERE cancellation IS NULL) AS dt
