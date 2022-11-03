@@ -1,3 +1,5 @@
+-- Case Study #2 - Pizza Runner
+
 /* 
 The first thing i did was to investigate the two problematic tables - customer_orders and runner_orders as indicated in the description.
 
