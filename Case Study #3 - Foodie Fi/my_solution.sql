@@ -52,4 +52,18 @@ FROM subscriptions
 SELECT churns_count, ROUND(churns_count/total_customers * 100, 1) AS percentage 
 FROM total_customers, churns
 
--- 5. 
+-- 5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
+
+SELECT COUNT(*) AS count,
+	ROUND(COUNT(*) / (SELECT COUNT(DISTINCT customer_id) FROM subscriptions) * 100) AS percentage
+FROM subscriptions
+INNER JOIN
+		(SELECT customer_id, MAX(start_date) AS last_action_date
+		FROM subscriptions
+		GROUP BY customer_id
+		HAVING COUNT(plan_id) = 2) AS customer_last_action_date
+	ON subscriptions.customer_id = customer_last_action_date.customer_id
+		AND subscriptions.start_date = customer_last_action_date.last_action_date
+WHERE plan_id = 4
+
+-- 6. What is the number and percentage of customer plans after their initial free trial?
